@@ -1,37 +1,7 @@
 <div class="container centered clear-pad">
-  <span dropdown class="btn-group pull-left">
-    <button dropdownToggle id="left-menu" type="button" class="btn menu-btn">
-      <i class="glyphicon glyphicon-menu-hamburger"></i>
-    </button>
-    <ul dropdownMenu role="menu" aria-labelledby="menu-button">
-      <li role="menuitem"><a [routerLink]="['/']">Select Site</a></li>
-      <li role="menuitem"><a [routerLink]="['/about']">About</a></li>
-      <!-- TODO: Disable service worker for now -->
-      <!-- <li class="divider dropdown&#45;divider"></li> -->
-      <!-- <li role="menuitem"><a (click)="clearCache()">Update Application</a></li> -->
-    </ul>
-  </span>
-  <span class="title">GNSS Site Manager</span>
-  <span class="pull-right" *ngIf="siteId">
-    <div class="hidden-xs">
-      <button class="btn small-btn" type="submit" (click)="save()"
-              [disabled]="!hasFormChanged()" title="Save changes">Save
-      </button>
-      <button class="btn small-btn" type="submit" (click)="revert()" title="Discard changes">Revert
-      </button>
-      <button class="btn small-btn" type="submit" (click)="close()"
-              title="Close current page and go back to Home page">Close
-      </button>
-        <button class="btn small-btn" type="submit" (click)="login()"
-                title="Login">Login
-      </button>
-      <span class="id-label">{{siteId}}</span>
-    </div>
-    <div class="hidden-sm hidden-md hidden-lg">
-      <div dropdown class="btn-group pull-left">
-        <button dropdownToggle id="right-menu" type="button" class="btn wrap-btn">
-          <span class="btn-label">{{siteId}}</span>
-          <i class="glyphicon glyphicon-option-vertical"></i>
+    <span dropdown class="btn-group pull-left">
+        <button dropdownToggle id="left-menu" type="button" class="btn menu-btn">
+          <i class="glyphicon glyphicon-menu-hamburger"></i>
         </button>
         <ul dropdownMenu role="menu" aria-labelledby="menu-button" class="dropdown-menu-right">
           <li role="menuitem"><a (click)="save()">Save</a></li>
@@ -39,7 +9,29 @@
           <li class="divider dropdown-divider"></li>
           <li role="menuitem"><a (click)="close()">Close</a></li>
         </ul>
-      </div>
-    </div>
-  </span>
+    </span>
+    <span class="title">GNSS Site Manager</span>
+    <span class="pull-right" *ngIf="siteId">
+        <div class="hidden-xs">
+            <button class="btn small-btn" type="submit" (click)="save()" [disabled]="!hasFormChanged()" title="Save changes">Save</button>
+            <button class="btn small-btn" type="submit" (click)="revert()" title="Discard changes">Revert</button>
+            <button class="btn small-btn" type="submit" (click)="close()" title="Close current page and go back to Home page">Close</button>
+            <a [routerLink]="['/login']">Login</a>
+            <span class="id-label">{{siteId}}</span>
+        </div>
+        <div class="hidden-sm hidden-md hidden-lg">
+            <div dropdown class="btn-group pull-left">
+                <button dropdownToggle id="right-menu" type="button" class="btn wrap-btn">
+                  <span class="btn-label">{{siteId}}</span>
+                  <i class="glyphicon glyphicon-option-vertical"></i>
+                </button>
+                <ul dropdownMenu role="menu" aria-labelledby="menu-button" class="dropdown-menu-right">
+                  <li role="menuitem"><a (click)="save()">Save</a></li>
+                  <li role="menuitem"><a (click)="revert()" title="Discard changes">Revert</a></li>
+                  <li class="divider dropdown-divider"></li>
+                  <li role="menuitem"><a (click)="close()">Close</a></li>
+                </ul>
+            </div>
+        </div>
+    </span>
 </div>

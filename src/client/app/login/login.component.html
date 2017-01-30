@@ -1,0 +1,26 @@
+<div class="container centered clear-pad">
+    <div class="col-md-12 col-sm-12 col-xs-12 col-xxs-12 pad-sm">
+        <div class="panel-group">
+            <div class="panel panel-level-1">
+                <div class="panel-heading">
+                    <div class="form-group">
+                        <div class="col-md-9 col-md-offset-1 col-sm-9 col-sm-offset-1
+                      col-xs-8 col-xs-offset-1 col-xxs-12 col-xxs-offset-0 margin-top5">
+                            <input type="text" name="userName" maxlength="200" class="form-control"
+                                   (input)="searchTextSubject.next($event.target.value)"
+                                   placeholder="Enter user name"/>
+                            <input type="password" name="password" maxlength="200" class="form-control"
+                                   (input)="searchTextSubject.next($event.target.value)"
+                                   placeholder="Enter password"/>
+                        </div>
+                        <div class="col-md-2 col-sm-2 col-xs-1 col-xxs-12">
+                            <button class="btn btn-primary col-xxs-center" (click)="login()" title="Login">
+                                Login
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

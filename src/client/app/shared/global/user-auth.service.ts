@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {DialogService} from './dialog.service';
+// import {DialogService} from './dialog.service';
 /**
  * Service for authentication and authorisation of subjects.
  */
@@ -24,14 +24,15 @@ export class User {
 export class UserAuthService {
     user: User;
 
-    constructor(private dialogService: DialogService) {
+    // constructor(private dialogService: DialogService) {
         // comment
-    }
+    // }
 
     /**
      * Present the login form
      */
     public login() {
-        this.dialogService.showLoginDialog();
+        // this.dialogService.showLoginDialog();
+        console.log('login');
     }
 }

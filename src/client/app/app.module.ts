@@ -14,6 +14,7 @@ import { HomeModule } from './home/home.module';
 import { SiteInfoModule } from './site-info/site-info.module';
 import { SelectSiteModule } from './select-site/select-site.module';
 import { AutoHeightDirective } from './shared/global/auto-height.directive';
+import { LoginModule } from './login/login.module';
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import { AutoHeightDirective } from './shared/global/auto-height.directive';
     SiteInfoModule,
     SelectSiteModule,
     HomeModule,
+    LoginModule,
     SharedModule.forRoot()
   ],
   declarations: [

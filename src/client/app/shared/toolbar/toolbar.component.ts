@@ -45,10 +45,6 @@ export class ToolbarComponent implements OnInit {
     this.onClose.emit( this.siteId !== null );
   }
 
-  login() {
-      this.userAuthService.login();
-  }
-
   hasFormChanged() {
     return true;
   }

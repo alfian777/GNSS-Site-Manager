@@ -1,10 +1,9 @@
 import { Route } from '@angular/router';
-
 import { LoginComponent } from './index';
 
-export const SelectSiteRoutes: Route[] = [
+export const LoginRoutes: Route[] = [
   {
-    path: '',
+    path: 'login',
     component: LoginComponent
   },
 ];

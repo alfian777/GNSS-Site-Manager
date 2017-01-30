@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
-// import {DialogService} from './dialog.service';
+import {ConstantsService} from './constants.service';
+
 /**
  * Service for authentication and authorisation of subjects.
  */
@@ -24,15 +25,14 @@ export class User {
 export class UserAuthService {
     user: User;
 
-    // constructor(private dialogService: DialogService) {
-        // comment
-    // }
+    constructor(private constantsService: ConstantsService) {
+    }
 
     /**
      * Present the login form
      */
-    public login() {
+    public login(username: string, password: string) {
         // this.dialogService.showLoginDialog();
-        console.log('login');
+        console.log('login - ' + username + ':'+password+'; post to ', this.constantsService.getOpenAMServerURL());
     }
 }

@@ -1,21 +1,21 @@
 import {Injectable} from '@angular/core';
 import {ConstantsService} from './constants.service';
-import {Location} from '@angular/common';
 
 /**
  * Service for authentication and authorisation of subjects.
  */
 
 export class IdToken {
-    private _firstName: string;  // Geodesy Extension
-    private _surname: string;    // Geodesy Extension
-    private _groups: string[];   // Geodesy Extension
-    private _issuer: string;     // openId: iss
-    private _subject: string;    // OpenId: sub
-    private _audience: string;   // OpenId: aud - Audience(s) who this ID Token is intended for. It MUST contain the OAuth 2.0
+    private _firstName: string; // Geodesy Extension
+    private _surname: string;   // Geodesy Extension
+    private _groups: string[];  // Geodesy Extension
+    private _issuer: string;    // openId: iss
+    private _subject: string;   // OpenId: sub
+    private _audience: string;  // OpenId: aud - Audience(s) who this ID Token is intended for. It MUST contain the OAuth 2.0
     //          client_id of the Relying Party as an audience value
-    private _expiry: string;     // OpenId: exp - : Expiration time on or after which the ID Token MUST NOT be accepted for processing
-    private _issueTime: string;  // OpenId: iat - Time at which the JWT was issued
+    private _expiry: string;    // OpenId: exp - : Expiration time on or after which the ID Token MUST NOT be accepted for processing
+    private _issueTime: string; // OpenId: iat - Time at which the JWT was issued
+    private _nonce: string;     // OpemAm extension
 
     /**
      * @param idToken from auth system redirected url - JS Object populated from OpenId system.
@@ -30,6 +30,7 @@ export class IdToken {
             this.audience = idToken.aud || '';
             this.expiry = idToken.exp || '';
             this.issueTime = idToken.iat || '';
+            this.nonce = idToken.nonce || '';
         }
     }
 
@@ -69,6 +70,10 @@ export class IdToken {
         return this._issueTime;
     }
 
+    get nonce(): string {
+        return this._nonce;
+    }
+
     set firstName(val: string) {
         this._firstName = val;
     }
@@ -100,13 +105,18 @@ export class IdToken {
     set issueTime(val: string) {
         this._issueTime = val;
     }
+
+    set nonce(val: string) {
+        this._nonce = val;
+    }
 }
 
 @Injectable()
 export class UserAuthService {
     private idToken: IdToken;
 
-    constructor(private constantsService: ConstantsService, private location: Location) {
+    // , private location: Location - add when using redirectUrl (in '@angular/common')
+    constructor(private constantsService: ConstantsService) {
     }
 
     /**
@@ -115,12 +125,8 @@ export class UserAuthService {
     public getUserName(): string {
         let name: string = '';
         if (this.idToken) {
-            if (this.idToken.firstName) {
-                name += this.idToken.firstName;
-            }
-            if (this.idToken.surname) {
-                name += ' ';
-                name += this.idToken.surname;
+            if (this.idToken.subject) {
+                name += this.idToken.subject;
             }
         }
         return name;
@@ -197,5 +203,10 @@ export class UserAuthService {
         var split: string[] = tokenString.split(/\./);
         var exBase64: string = atob(split[1]);
         return JSON.parse(exBase64);
+    }
+
+    public logout() {
+        this.idToken = new IdToken();
+        // TODO - also need to log out in the Auth systm
     }
 }

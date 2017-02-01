@@ -15,7 +15,7 @@
     <span class="pull-right">
         <div class="hidden-xs">
             <span>{{getUserName()}}</span>
-            <a (click)="login()" class="cursor-ptr">Login</a>
+            <a (click)="loginLogout()" class="cursor-ptr">{{getLoginActionString()}}</a>
             <span> / </span>
             <a (click)="register()" class="cursor-ptr">Register</a>
             <span *ngIf="siteId">

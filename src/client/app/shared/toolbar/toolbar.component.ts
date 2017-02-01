@@ -100,9 +100,17 @@ export class ToolbarComponent implements OnInit {
         });
     };
 
-    login() {
-        console.log('toobar login');
-        this.userAuthService.login();
+    getLoginActionString() {
+        return this.userAuthService.getUserName() === '' ? 'login' : 'logout';
+    }
+
+    loginLogout() {
+        console.log('toobar loginLogout');
+        if (this.userAuthService.getUserName() === '') {
+            this.userAuthService.login();
+        } else {
+            this.userAuthService.logout();
+        }
     }
 
     getUserName() {

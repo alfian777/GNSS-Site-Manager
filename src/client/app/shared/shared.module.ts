@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { DropdownModule, TooltipModule  } from 'ng2-bootstrap';
+import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -38,12 +39,13 @@ import { JsonViewModelService } from './json-data-view-model/index';
   ],
 })
 export class SharedModule {
-  static forRoot(): ModuleWithProviders {
-    return {
-      ngModule: SharedModule,
-      providers: [MiscUtils, JsonixService, SiteLogService,
-                  CorsSiteService, WFSService, ConstantsService, HttpUtilsService, JsonViewModelService,
-                  UserAuthService]
-    };
-  }
+    static forRoot(): ModuleWithProviders {
+        return {
+            ngModule: SharedModule,
+            providers: [MiscUtils, JsonixService, SiteLogService,
+                CorsSiteService, WFSService, ConstantsService, HttpUtilsService, JsonViewModelService,
+                UserAuthService,
+                Location, {provide: LocationStrategy, useClass: PathLocationStrategy}]
+        };
+    }
 }

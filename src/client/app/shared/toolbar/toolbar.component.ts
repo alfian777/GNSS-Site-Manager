@@ -20,6 +20,7 @@ export class ToolbarComponent implements OnInit {
     private serviceWorkerSubscription: Subscription;
     private cacheItems: Array<string> = [];
     private siteId: string;
+    // private id_token: string;
 
     constructor(
       private serviceWorkerService: ServiceWorkerService,
@@ -102,5 +103,9 @@ export class ToolbarComponent implements OnInit {
     login() {
         console.log('toobar login');
         this.userAuthService.login();
+    }
+
+    getUserName() {
+        return this.userAuthService.getUserName();
     }
 }

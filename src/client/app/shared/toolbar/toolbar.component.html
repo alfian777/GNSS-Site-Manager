@@ -12,15 +12,20 @@
         </ul>
     </span>
     <span class="title">GNSS Site Manager</span>
-    <span class="pull-right" *ngIf="siteId">
+    <span class="pull-right">
         <div class="hidden-xs">
-            <button class="btn small-btn" type="submit" (click)="save()" [disabled]="!hasFormChanged()" title="Save changes">Save</button>
-            <button class="btn small-btn" type="submit" (click)="revert()" title="Discard changes">Revert</button>
-            <button class="btn small-btn" type="submit" (click)="close()" title="Close current page and go back to Home page">Close</button>
-            <a [routerLink]="['/login']">Login</a>
-            <span class="id-label">{{siteId}}</span>
+            <span>{{getUserName()}}</span>
+            <a (click)="login()" class="cursor-ptr">Login</a>
+            <span> / </span>
+            <a (click)="register()" class="cursor-ptr">Register</a>
+            <span *ngIf="siteId">
+                <button class="btn small-btn" type="submit" (click)="save()" [disabled]="!hasFormChanged()" title="Save changes">Save</button>
+                <button class="btn small-btn" type="submit" (click)="revert()" title="Discard changes">Revert</button>
+                <button class="btn small-btn" type="submit" (click)="close()" title="Close current page and go back to Home page">Close</button>
+                <span class="id-label">{{siteId}}</span>
+            </span>
         </div>
-        <div class="hidden-sm hidden-md hidden-lg">
+        <div class="hidden-sm hidden-md hidden-lg" *ngIf="siteId">
             <div dropdown class="btn-group pull-left">
                 <button dropdownToggle id="right-menu" type="button" class="btn wrap-btn">
                   <span class="btn-label">{{siteId}}</span>

@@ -1,6 +1,5 @@
 import {UserAuthService, IdToken} from './user-auth.service';
 import {ConstantsService} from './constants.service';
-import {Location} from '@angular/common';// PlatformLocation
 
 export function main() {
     let userAuthService: UserAuthService;
@@ -16,8 +15,7 @@ export function main() {
 
         beforeEach(() => {
             const fakeConstantsService = {};
-            const fakeLocation = {};
-            userAuthService = new UserAuthService(fakeConstantsService as ConstantsService, fakeLocation as Location);
+            userAuthService = new UserAuthService(fakeConstantsService as ConstantsService);
         });
 
         it('should be defined', () => {

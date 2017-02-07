@@ -10,7 +10,7 @@ import {Router} from '@angular/router';
 @Component({
     moduleId: module.id,
     selector: 'login',
-    templateUrl: 'login.component.html',
+    template: '',
 })
 export class LoginComponent implements OnInit {
     private username: string;

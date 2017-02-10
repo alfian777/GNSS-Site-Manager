@@ -147,7 +147,7 @@ export class UserAuthService {
         // This appRedirectUri as query param doesn't work (OpenAM's Agent's 'redirect url' must be exact)
         // Instead try saving and retrieving from HTML 5's window.localStorage
         // let appRedirectUri: string = 'appRedirect_uri='+this.location.path();;
-        let redirectUri: string = 'redirect_uri=http://localhost:5555/login';
+        let redirectUri: string = 'redirect_uri='+this.constantsService.getClientURL()+'/login';
         let responseType: string = 'response_type=id_token';
         let clientId: string = 'client_id=GNSSSiteManager';
         let scope: string = 'scope=openid profile';

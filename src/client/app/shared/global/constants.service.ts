@@ -12,6 +12,7 @@ export class ConstantsService {
     private webServiceURL: string = Config.WEB_SERVICE_URL;
     private wfsGeoserverURL: string = Config.WFS_GEOSERVER_URL;
     private openAMServerURL: string = Config.OPENAM_SERVER_URL;
+    private clientURL: string = Config.CLIENT_URL;
 
     public getWebServiceURL(): string {
         return this.webServiceURL;
@@ -23,5 +24,9 @@ export class ConstantsService {
 
     public getOpenAMServerURL(): string {
         return this.openAMServerURL;
+    }
+
+    public getClientURL(): string {
+        return this.clientURL;
     }
 }

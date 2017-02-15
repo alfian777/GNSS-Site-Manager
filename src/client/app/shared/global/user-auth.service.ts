@@ -13,7 +13,7 @@ export class UserAuthService {
         authority: this.constantsService.getOpenAMServerURL() + '/oauth2',
         client_id: 'gnssSiteManager',
         redirect_uri: this.constantsService.getClientURL() + '/auth.html',
-        post_logout_redirect_uri: this.constantsService.getClientURL() + '/logout',
+        post_logout_redirect_uri: this.constantsService.getClientURL(),
         response_type: 'id_token',
         scope: 'openid profile',
 
@@ -91,7 +91,7 @@ export class UserAuthService {
     }
 
     signin() {
-        this.userManager.signinRedirect({data: 'some data'}).then(function () {
+        this.userManager.signinRedirect().then(function () {
             console.log("UserAuthService - signinRedirect done");
         }).catch(function (err) {
             console.log("UserAuthService - signinRedirect error");
@@ -103,6 +103,7 @@ export class UserAuthService {
         this.userManager.signoutRedirect().then(function (resp) {
             console.log("UserAuthService - signed out", resp);
         }).catch(function (err) {
+            console.log("UserAuthService - signoutRedirect error");
             console.log(err);
         });
     };

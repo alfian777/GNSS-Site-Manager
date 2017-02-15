@@ -120,11 +120,11 @@ export class ToolbarComponent implements OnInit {
 
     loginLogout() {
         console.log('toolbar loginLogout');
-        // if (this.userAuthService.getUserName() === '') {
-        this.userAuthService.signin();
-        // } else {
-        //     this.userAuthService.logout();
-        // }
+        if (this.user == null) {
+            this.userAuthService.signin();
+        } else {
+            this.userAuthService.signout();
+        }
     }
 
     getUserName() {

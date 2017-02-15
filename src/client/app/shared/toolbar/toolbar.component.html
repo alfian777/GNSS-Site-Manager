@@ -10,18 +10,18 @@
             <!-- <li class="divider dropdown&#45;divider"></li> -->
             <!-- <li role="menuitem"><a (click)="clearCache()">Update Application</a></li> -->
         </ul>
-    </span>
-    <span class="title">GNSS Site Manager</span>
-    <span class="pull-right">
+    </span> <span class="title">GNSS Site Manager</span> <span class="pull-right">
         <div class="hidden-xs">
             <span>{{getUserName()}}</span>
             <a (click)="loginLogout()" class="cursor-ptr">{{getLoginActionString()}}</a>
             <span> / </span>
             <a (click)="register()" class="cursor-ptr">Register</a>
             <span *ngIf="siteId">
-                <button class="btn small-btn" type="submit" (click)="save()" [disabled]="!hasFormChanged()" title="Save changes">Save</button>
+                <button class="btn small-btn" type="submit" (click)="save()" [disabled]="!hasFormChanged()"
+                        title="Save changes">Save</button>
                 <button class="btn small-btn" type="submit" (click)="revert()" title="Discard changes">Revert</button>
-                <button class="btn small-btn" type="submit" (click)="close()" title="Close current page and go back to Home page">Close</button>
+                <button class="btn small-btn" type="submit" (click)="close()"
+                        title="Close current page and go back to Home page">Close</button>
                 <span class="id-label">{{siteId}}</span>
             </span>
         </div>

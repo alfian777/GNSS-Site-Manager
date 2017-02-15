@@ -28,9 +28,10 @@ export class LoginComponent implements OnInit {
         console.log('username: ' + this.username);
         console.log('password: ' + this.password);
 
-        let locationHref: string = window.location.href;
+        // let locationHref: string = window.location.href;
         console.log('login - location: ', this.location.path());
-        this.userAuthService.extractAuthDetails(locationHref);
+        // this.userAuthService.extractAuthDetails(locationHref);
+
 
         // TODO - change this to the page they were on - get from userAuthService
         this.router.navigate(['/']);

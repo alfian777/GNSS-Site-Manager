@@ -4,6 +4,7 @@ import { ConstantsService, DialogService, MiscUtils,
          SiteLogService, JsonDiffService, JsonCheckService } from '../shared/index';
 import {SiteLogViewModel} from '../shared/json-data-view-model/view-model/site-log-view-model';
 import {UserAuthService} from '../shared/global/user-auth.service';
+import {User} from 'oidc-client';
 
 /**
  * This class represents the SiteInfoComponent for viewing and editing the details of site/receiver/antenna.
@@ -28,6 +29,8 @@ export class SiteInfoComponent implements OnInit, OnDestroy {
   private siteInfoTab: any = null;
   private submitted: boolean = false;
   public miscUtils: any = MiscUtils;
+    private user: User;
+    private loadedUserSub: any;
 
   public siteContactName: string = ConstantsService.SITE_CONTACT;
   public siteMetadataCustodianName: string = ConstantsService.SITE_METADATA_CUSTODIAN;
@@ -74,6 +77,7 @@ export class SiteInfoComponent implements OnInit, OnDestroy {
     });
 
     this.loadSiteInfoData();
+    this.setupAuthSubscription();
   }
 
   /**
@@ -120,6 +124,13 @@ export class SiteInfoComponent implements OnInit, OnDestroy {
     });
   }
 
+    private setupAuthSubscription() {
+        this.loadedUserSub = this.userAuthService.userLoadededEvent
+            .subscribe((subuser: User) => {
+                console.log('SiteInfoComponent - subscribe to get user');
+                this.user = subuser;
+            });
+    }
   /**
    * Clear all variables/arrays
    */
@@ -199,6 +210,7 @@ export class SiteInfoComponent implements OnInit, OnDestroy {
   }
 
     isUserLoggedIn(): boolean {
-      return this.userAuthService.getUserName() !== '';
+      console.log('SiteInfoComponent - isUserLoggedIn');
+      return this.user !== null && this.user !== undefined;
     }
 }

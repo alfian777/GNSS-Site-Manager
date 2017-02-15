@@ -100,7 +100,11 @@ export class ProjectConfig extends SeedConfig {
       {
         name: 'moment',
         path: 'node_modules/moment/moment.js'
-      }
+      },
+        {
+            name: 'oidc-client',
+            path: 'node_modules/oidc-client/lib/oidc-client.min.js'
+        }
     ];
 
     this.addPackagesBundles(additionalPackages);

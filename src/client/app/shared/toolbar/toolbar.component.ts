@@ -1,8 +1,9 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { ServiceWorkerService } from '../index';
-import { NavigationEnd, Router, ActivatedRoute, Params } from '@angular/router';
+import {Component, OnInit, EventEmitter, Output} from '@angular/core';
+import {Subscription} from 'rxjs';
+import {ServiceWorkerService} from '../index';
+import {NavigationEnd, Router, ActivatedRoute, Params} from '@angular/router';
 import {UserAuthService} from '../global/user-auth.service';
+import {User} from 'oidc-client';
 
 /**
  * This class represents the toolbar component which is the header of all UI pages.
@@ -20,13 +21,16 @@ export class ToolbarComponent implements OnInit {
     private serviceWorkerSubscription: Subscription;
     private cacheItems: Array<string> = [];
     private siteId: string;
+    private user: User;
+
+    private loadedUserSub: any;
+
     // private id_token: string;
 
-    constructor(
-      private serviceWorkerService: ServiceWorkerService,
-      private route: ActivatedRoute,
-      private router: Router,
-      private userAuthService: UserAuthService) {
+    constructor(private serviceWorkerService: ServiceWorkerService,
+                private route: ActivatedRoute,
+                private router: Router,
+                private userAuthService: UserAuthService) {
     }
 
     ngOnInit() {
@@ -53,6 +57,7 @@ export class ToolbarComponent implements OnInit {
     private setupSubscriptions() {
         this.setupServiceWorkerSubscription();
         this.setupRouterSubscription();
+        this.setupAuthSubscription();
     }
 
     private setupServiceWorkerSubscription() {
@@ -75,6 +80,14 @@ export class ToolbarComponent implements OnInit {
                     let obj: {id: string} = <any> param.valueOf();
                     this.siteId = obj.id;
                 });
+            });
+    }
+
+    private setupAuthSubscription() {
+        this.loadedUserSub = this.userAuthService.userLoadededEvent
+            .subscribe((subuser: User) => {
+                console.log('subscribe to get user');
+                this.user = subuser;
             });
     }
 
@@ -101,19 +114,23 @@ export class ToolbarComponent implements OnInit {
     };
 
     getLoginActionString() {
-        return this.userAuthService.getUserName() === '' ? 'login' : 'logout';
+        console.log('toolbar getLoginActionString - user: ', this.user);
+        return this.user == null ? 'login' : 'logout';
     }
 
     loginLogout() {
-        console.log('toobar loginLogout');
-        if (this.userAuthService.getUserName() === '') {
-            this.userAuthService.login();
-        } else {
-            this.userAuthService.logout();
-        }
+        console.log('toolbar loginLogout');
+        // if (this.userAuthService.getUserName() === '') {
+        this.userAuthService.signin();
+        // } else {
+        //     this.userAuthService.logout();
+        // }
     }
 
     getUserName() {
-        return this.userAuthService.getUserName();
+        // return this.userAuthService.getUserName() ? this.userAuthService.getUserName() : '';
+        console.log('toolbar getUserName - user: ', this.user);
+
+        return this.user != null ? this.user.profile.sub : 'NOT LOGGED IN';
     }
 }

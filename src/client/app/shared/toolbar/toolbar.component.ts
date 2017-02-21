@@ -113,24 +113,50 @@ export class ToolbarComponent implements OnInit {
         });
     };
 
-    getLoginActionString() {
-        console.log('toolbar getLoginActionString - user: ', this.user);
-        return this.user == null ? 'login' : 'logout';
+    isUserLoggedIn(): boolean {
+        return this.user != null;
+    }
+
+    getLoginActionString(sepToDisplayIfUser?: string): string {
+        if (this.isUserLoggedIn()) {
+            return 'logout';
+        } else {
+            return 'login';
+        }
+    }
+
+    getVerticalDivider(display: boolean): string {
+        if (display) {
+            return '|';
+        } else {
+            return '';
+        }
     }
 
     loginLogout() {
         console.log('toolbar loginLogout');
-        if (this.user == null) {
-            this.userAuthService.signin();
-        } else {
+        if (this.isUserLoggedIn()) {
             this.userAuthService.signout();
+        } else {
+            this.userAuthService.signin();
         }
     }
 
-    getUserName() {
+    getUserName(): string {
         // return this.userAuthService.getUserName() ? this.userAuthService.getUserName() : '';
         console.log('toolbar getUserName - user: ', this.user);
 
-        return this.user != null ? this.user.profile.sub : 'NOT LOGGED IN';
+        return this.isUserLoggedIn() ? this.user.profile.sub : '';
+    }
+
+    getRegisterActionString(): string {
+        if (this.isUserLoggedIn()) {
+            return '';
+        }
+        return 'Register';
+    }
+
+    register() {
+        alert('register not implmemented yet');
     }
 }

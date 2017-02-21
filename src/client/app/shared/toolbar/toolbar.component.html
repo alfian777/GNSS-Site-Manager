@@ -13,9 +13,10 @@
     </span> <span class="title">GNSS Site Manager</span> <span class="pull-right">
         <div class="hidden-xs">
             <span>{{getUserName()}}</span>
+            <span>{{getVerticalDivider(isUserLoggedIn())}}</span>
             <a (click)="loginLogout()" class="cursor-ptr">{{getLoginActionString()}}</a>
-            <span> / </span>
-            <a (click)="register()" class="cursor-ptr">Register</a>
+            <span>{{getVerticalDivider(! isUserLoggedIn())}}</span>
+            <a (click)="register()" class="cursor-ptr">{{getRegisterActionString()}}</a>
             <span *ngIf="siteId">
                 <button class="btn small-btn" type="submit" (click)="save()" [disabled]="!hasFormChanged()"
                         title="Save changes">Save</button>

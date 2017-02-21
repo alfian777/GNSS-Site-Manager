@@ -211,6 +211,6 @@ export class SiteInfoComponent implements OnInit, OnDestroy {
 
     isUserLoggedIn(): boolean {
       console.log('SiteInfoComponent - isUserLoggedIn');
-      return this.user !== null && this.user !== undefined;
+      return this.user != null;
     }
 }

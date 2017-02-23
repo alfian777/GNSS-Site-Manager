@@ -7,9 +7,8 @@
 <body>
     <h1 id="waiting">Waiting...</h1>
     <div id="error"></div>
-    <script src="assets/oidc-client.min.js"></script>
+    <script src="node_modules/oidc-client/lib/oidc-client.min.js"></script>
     <script>
-        Log.logger = console;
         new UserManager().signinRedirectCallback().then(function (user) {
             console.log('auth.html - user: ', user);
             if (user == null) {

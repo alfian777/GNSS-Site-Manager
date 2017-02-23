@@ -9,21 +9,33 @@ import {ConstantsService} from './constants.service';
 
 @Injectable()
 export class UserAuthService {
-    settings: any = {
-        authority: this.constantsService.getOpenAMServerURL() + '/oauth2',
-        client_id: 'gnssSiteManager',
-        redirect_uri: this.constantsService.getClientURL() + '/auth.html',
-        post_logout_redirect_uri: this.constantsService.getClientURL(),
-        response_type: 'id_token',
-        scope: 'openid profile',
+    settings: any = {};
 
-        silent_redirect_uri: this.constantsService.getClientURL() + '/renew',
-        automaticSilentRenew: true,
-        //silentRequestTimeout:10000,
+    // , private location: Location - add when using redirectUrl (in '@angular/common')
+    constructor(private constantsService: ConstantsService) {
+        this.setup();
+        this.loginIfUser();
+        this.addEvents();
+    }
 
-        filterProtocolClaims: true,
-        loadUserInfo: true
-    };
+    private setup(): void {
+        this.settings = {
+            authority: this.constantsService.getOpenAMServerURL() + '/oauth2',
+            client_id: 'gnssSiteManager',
+            redirect_uri: this.constantsService.getClientURL() + '/auth.html',
+            post_logout_redirect_uri: this.constantsService.getClientURL(),
+            response_type: 'id_token',
+            scope: 'openid profile',
+
+            silent_redirect_uri: this.constantsService.getClientURL() + '/renew',
+            automaticSilentRenew: true,
+            //silentRequestTimeout:10000,
+
+            filterProtocolClaims: true,
+            loadUserInfo: true
+        };
+    }
+
     // private idToken: IdToken;
     private userManager: UserManager = new UserManager(this.settings);
     userLoadededEvent: EventEmitter<User> = new EventEmitter<User>();
@@ -31,12 +43,6 @@ export class UserAuthService {
     loggedIn: boolean = false;
 
     authHeaders: Headers;
-
-    // , private location: Location - add when using redirectUrl (in '@angular/common')
-    constructor(private constantsService: ConstantsService) {
-        this.loginIfUser();
-        this.addEvents();
-    }
 
     private loginIfUser() {
         this.userManager.getUser()

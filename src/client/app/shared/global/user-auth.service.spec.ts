@@ -1,4 +1,4 @@
-import {UserAuthService, IdToken} from './user-auth.service';
+import {UserAuthService} from './user-auth.service';
 import {ConstantsService} from './constants.service';
 
 export function main() {
@@ -11,10 +11,13 @@ export function main() {
         'OWZjLTY1OGI3YTk1ZTM4OSIsICJhenAiOiAiR05TU1NpdGVNYW5hZ2VyIiwgImF1dGhfdGltZSI6IDE0ODU5MjE4ODIsICJuYW1lIjogIlVzZXIgT25lIiwgInJlYWx' +
         'tIjogIi8iLCAiZXhwIjogMTQ4NTkyNTU0NywgInRva2VuVHlwZSI6ICJKV1RUb2tlbiIsICJpYXQiOiAxNDg1OTIxOTQ3LCAiZmFtaWx5X25hbWUiOiAiVXNlciIgfQ' +
         '.ZUE1PYDeJ4Gl1zAIruNQ_L5pkHG_KwJ5xfTej6ZCwQg';
-    fdescribe('Test User Auth Service ...', () => {
+    describe('Test User Auth Service ...', () => {
 
         beforeEach(() => {
-            const fakeConstantsService = {};
+            const fakeConstantsService = {
+                getOpenAMServerURL: function() {},
+                getClientURL: function() {},
+            };
             userAuthService = new UserAuthService(fakeConstantsService as ConstantsService);
         });
 

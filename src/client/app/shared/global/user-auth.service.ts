@@ -9,9 +9,12 @@ import {ConstantsService} from './constants.service';
 
 @Injectable()
 export class UserAuthService {
-    settings: any = {};
+    private settings: any = {};
+    private userManager: UserManager;
+    private currentUser: User;
+    private loggedIn: boolean = false;
+    public userLoadededEvent: EventEmitter<User> = new EventEmitter<User>();
 
-    // , private location: Location - add when using redirectUrl (in '@angular/common')
     constructor(private constantsService: ConstantsService) {
         this.setup();
         this.loginIfUser();
@@ -34,42 +37,39 @@ export class UserAuthService {
             filterProtocolClaims: true,
             loadUserInfo: true
         };
+
+        this.userManager = new UserManager(this.settings);
     }
 
-    // private idToken: IdToken;
-    private userManager: UserManager = new UserManager(this.settings);
-    userLoadededEvent: EventEmitter<User> = new EventEmitter<User>();
-    currentUser: User;
-    loggedIn: boolean = false;
-
-    authHeaders: Headers;
 
     private loginIfUser() {
         this.userManager.getUser()
             .then((user) => {
                 if (user) {
                     console.log('UserAuthService - loginIfUser() - user exists')
-                    this.loggedIn = true;
+                    // this.loggedIn = true;
                     this.currentUser = user;
                     this.userLoadededEvent.emit(user);
                 }
                 else {
                     console.log('UserAuthService - loginIfUser() - user NOT exist')
-                    this.loggedIn = false;
+                    this.currentUser = null;
                 }
             })
             .catch((err) => {
-                this.loggedIn = false;
+                this.currentUser = null;
+                // this.loggedIn = false;
             });
     }
 
     private addEvents() {
         this.userManager.events.addUserUnloaded((e) => {
-            this.loggedIn = false;
+            // this.loggedIn = false;
             console.log('User logged out: ', e);
+            this.currentUser = null;
         });
         this.userManager.events.addUserLoaded((e) => {
-            this.loggedIn = true;
+            // this.loggedIn = true;
             console.log('User logged in: ', e);
         });
     }
